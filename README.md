@@ -4,6 +4,7 @@
 
 - [vechicle_registration](#vechicle_registration)
   - [Índice](#índice)
+  - [Arquitetura de Datos](#arquitetura-de-datos)
   - [Configuración](#configuración)
     - [Configuración de usuarios](#configuración-de-usuarios)
     - [Configuración de tipos de vehículos](#configuración-de-tipos-de-vehículos)
@@ -16,6 +17,10 @@
     - [Visualizar vechículos desde el contacto (conductor) y enviar vehículos a la API](#visualizar-vechículos-desde-el-contacto-conductor-y-enviar-vehículos-a-la-api)
 
 Módulo para gestionar el registro de vehículos.
+
+## Arquitetura de Datos
+
+![arquitectura de datos](images/registro_vehicular.drawio.png)
 
 ## Configuración
 
