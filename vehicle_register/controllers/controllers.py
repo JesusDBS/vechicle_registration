@@ -32,7 +32,7 @@ def print_vals(vals):
             print(f"Color: {vehicle['color']}")
             print(f"Estado: {vehicle['state']}")
             print("\n")
-            return {"success": True, "data": vals}
+        return {"success": True, "data": vals}
     except Exception as e:
         return {"success": False, "message": str(e)}
 
