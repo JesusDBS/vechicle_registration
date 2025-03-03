@@ -1,5 +1,20 @@
 # vechicle_registration
 
+## Índice
+
+- [vechicle_registration](#vechicle_registration)
+  - [Índice](#índice)
+  - [Configuración](#configuración)
+    - [Configuración de usuarios](#configuración-de-usuarios)
+    - [Configuración de tipos de vehículos](#configuración-de-tipos-de-vehículos)
+    - [Configuración de tipos de licencias](#configuración-de-tipos-de-licencias)
+    - [Configuración de marcas de vehículos](#configuración-de-marcas-de-vehículos)
+    - [Configuración de conductores](#configuración-de-conductores)
+    - [Configuración de licencias](#configuración-de-licencias)
+  - [Uso](#uso)
+    - [Registro de vehículos](#registro-de-vehículos)
+    - [Visualizar vechículos desde el contacto (conductor) y enviar vehículos a la API](#visualizar-vechículos-desde-el-contacto-conductor-y-enviar-vehículos-a-la-api)
+
 Módulo para gestionar el registro de vehículos.
 
 ## Configuración
@@ -70,3 +85,11 @@ Avanzar por los estados de validación hasta llegar a la decisión de si el veh�
 ![flujo registro](images/image_flujo_registro.png)
 
 ![vista tree](images/image_vista_tree.png)
+
+### Visualizar vechículos desde el contacto (conductor) y enviar vehículos a la API
+
+Desde la vista formulario del conductor, se puede visualizar los vehículos que tiene registrado a través del smart button "Vehículos". El botón "Enviar Vehículos a la API" permite enviar los vehículos registrados a una API externa que consiste en un controlador en Odoo.
+
+![smart button](images/image_smart_button.png)
+
+![logs](images/image_logs.png)
