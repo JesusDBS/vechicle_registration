@@ -5,7 +5,8 @@
     
         <!-- Main Menu -->
         <menuitem id="menu_vehicle_register_root" 
-                    name="Registro de Vehículos" 
+                    name="Registro de Vehículos"
+                    groups="group_vehicle_register_user" 
                     sequence="10" />
 
         <!-- drivers -->
