@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_vehicle_brand_tree" model="ir.ui.view">
+        <field name="name">vehicle.brand.tree</field>
+        <field name="model">vehicle.brand</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name" decoration-bf="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_vehicle_brand_form" model="ir.ui.view">
+        <field name="name">vehicle.brand.form</field>
+        <field name="model">vehicle.brand</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vehicle_brand" model="ir.actions.act_window">
+        <field name="name">Marcas de Vehículos</field>
+        <field name="res_model">vehicle.brand</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_vehicle_brand" 
+            name="Marcas de Vehículos" 
+            parent="menu_vehicle_config" 
+            action="action_vehicle_brand"
+            sequence="2"/>
+
+</odoo>

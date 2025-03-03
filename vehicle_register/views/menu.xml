@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        <!-- Main Menu -->
+        <menuitem id="menu_vehicle_register_root" 
+                    name="Registro de Vehículos" 
+                    sequence="10" />
+
+        <!-- drivers -->
+        <record id="action_drivers" model="ir.actions.act_window">
+            <field name="name">Conductores</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">{'search_default_drivers': 1}</field>
+        </record>
+
+        <menuitem id="menu_drivers" 
+                    name="Conductores" 
+                    parent="menu_vehicle_register_root"
+                    action="action_drivers"
+                    sequence="2"/>
+
+        <!-- config menu -->
+        <menuitem id="menu_vehicle_config_root" 
+                    name="Configuración" 
+                    parent="menu_vehicle_register_root"
+                    groups="group_vehicle_register_manager"
+                    sequence="4"/>
+
+        <menuitem id="menu_vehicle_config" 
+                    name="Vehículos"
+                    parent="menu_vehicle_config_root"
+                    sequence="1"/>
+
+        <menuitem id="menu_license_config" 
+                    name="Licencias para Conducir" 
+                    parent="menu_vehicle_config_root" 
+                    sequence="2"/>
+    
+    </data>
+    
+
+</odoo>

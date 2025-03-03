@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_log_tree" model="ir.ui.view">
+        <field name="name">log.log.tree</field>
+        <field name="model">log.log</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="response_date" decoration-bf="1"/>
+                <field name="status" 
+                        widget="badge"
+                        decoration-success="status == 'success'"
+                        decoration-danger="status == 'error'"/>
+                <field name="status_code"/>
+                <field name="response_text"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_log" model="ir.actions.act_window">
+        <field name="name">Logs</field>
+        <field name="res_model">log.log</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="menu_log" 
+            name="Logs" 
+            parent="menu_vehicle_register_root" 
+            action="action_log"
+            groups="group_vehicle_register_manager" 
+            sequence="5"/>
+
+</odoo>

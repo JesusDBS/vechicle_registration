@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_vehicle_type_tree" model="ir.ui.view">
+        <field name="name">vehicle.type.tree</field>
+        <field name="model">vehicle.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name" decoration-bf="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_vehicle_type_form" model="ir.ui.view">
+        <field name="name">vehicle.type.form</field>
+        <field name="model">vehicle.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="driver_license_type_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vehicle_type" model="ir.actions.act_window">
+        <field name="name">Tipos de Vehículos</field>
+        <field name="res_model">vehicle.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_vehicle_type" 
+            name="Tipos de Vehículos" 
+            parent="menu_vehicle_config" 
+            action="action_vehicle_type"
+            sequence="1"/>
+
+</odoo>

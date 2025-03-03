@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Driver License Type -->
+        <record id="license_1" model="driver.license.type">
+            <field name="name">SEGUNDA</field>
+        </record>
+
+        <record id="license_2" model="driver.license.type">
+            <field name="name">TERCERA</field>
+        </record>
+
+        <!-- Vehicle Type -->
+        <record id="vehicle_type_1" model="vehicle.type">
+            <field name="name">Motocicleta</field>
+            <field name="driver_license_type_ids" eval="[(6, 0, [ref('vehicle_register.license_1')])]"/>
+        </record>
+
+        <record id="vehicle_type_2" model="vehicle.type">
+            <field name="name">Automóvil</field>
+            <field name="driver_license_type_ids" eval="[(6, 0, [ref('vehicle_register.license_2')])]"/>
+        </record>
+
+        <!-- Vehicle Brand -->
+        <record id="vehicle_brand_1" model="vehicle.brand">
+            <field name="name">TOYOTA</field>
+        </record>
+
+        <record id="vehicle_brand_2" model="vehicle.brand">
+            <field name="name">BERA</field>
+        </record>
+    
+    </data>
+</odoo>

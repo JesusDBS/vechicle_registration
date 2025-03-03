@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_vehicle_tree" model="ir.ui.view">
+        <field name="name">vehicle.vehicle.tree</field>
+        <field name="model">vehicle.vehicle</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"  decoration-bf="1"/>
+                <field name="license_plate"/>
+                <field name="vehicle_type_id"/>
+                <field name="vehicle_brand_id"/>
+                <field name="vehicle_model"/>
+                <field name="year"/>
+                <field name="color"/>
+                <field name="driver_id"/>
+                <field name="state" 
+                        widget="badge"
+                        decoration-info="state == 'verification_pending'"
+                        decoration-warning="state == 'inspection_pending'"
+                        decoration-success="state == 'approved'"
+                        decoration-danger="state == 'rejected'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_vehicle_form" model="ir.ui.view">
+        <field name="name">vehicle.vehicle.form</field>
+        <field name="model">vehicle.vehicle</field>
+        <field name="arch" type="xml">
+            <form string="Vehículo">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button string="Volver a Borrador" 
+                            name="action_reset_draft" 
+                            type="object" 
+                            class="oe_highlight"
+                            attrs="{'invisible': [('state', 'in', ['draft'])]}"/>
+                    <button string="Pendiente de Verificación" 
+                            name="action_verify" 
+                            type="object" 
+                            class="oe_highlight"
+                            attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                    <button string="Inspección Pendiente" 
+                            name="action_pending_inspection" 
+                            type="object" 
+                            class="oe_highlight"
+                            attrs="{'invisible': [('state', 'not in', ['verification_pending'])]}"/>
+                    <button string="Aprobado"
+                            name="action_approve" 
+                            type="object" 
+                            class="oe_highlight"
+                            attrs="{'invisible': [('state', 'not in', ['inspection_pending'])]}"/>
+                    <button string="Rechazado" 
+                            name="action_reject" 
+                            type="object" 
+                            class="oe_highlight"
+                            attrs="{'invisible': [('state', 'not in', ['verification_pending', 'inspection_pending'])]}"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Aprobado" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'approved')]}"/>
+                    <widget name="web_ribbon" title="Rechazado" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'rejected')]}"/>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="driver_id" 
+                                        options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"
+                                        attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                <field name="license_plate" 
+                                        attrs="{'invisible': [('driver_id', '=', False)], 
+                                                'readonly': [('state', 'not in', ['draft'])]}"/>
+                                <field name="vehicle_type_id"
+                                        attrs="{'invisible': [('driver_id', '=', False)], 
+                                                'readonly': [('state', 'not in', ['draft'])]}"
+                                        options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                                <field name="vehicle_brand_id"
+                                        attrs="{'invisible': [('driver_id', '=', False)],  
+                                                'readonly': [('state', 'not in', ['draft'])]}"
+                                        options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                                <field name="vehicle_model" 
+                                        attrs="{'invisible': [('driver_id', '=', False)], 
+                                                'readonly': [('state', 'not in', ['draft'])]}"/>
+                                <field name="year" 
+                                        attrs="{'invisible': [('driver_id', '=', False)], 
+                                                'readonly': [('state', 'not in', ['draft'])]}"/>
+                                <field name="color" 
+                                        attrs="{'invisible': [('driver_id', '=', False)], 
+                                                'readonly': [('state', 'not in', ['draft'])]}"/>
+                            </group>
+                            <group>
+                                <field name="vehicle_image"
+                                        widget="image" options="{'size': (400, 300)}"
+                                        attrs="{'invisible': [('driver_id', '=', False)], 
+                                                'readonly': [('state', 'not in', ['draft'])]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <notebook>
+                        <page string="Documento de Propiedad" name="ownership_document" attrs="{'invisible': [('driver_id', '=', False)]}">
+                            <sheet>
+                                <field name="vehicle_ownership_document" widget="pdf_viewer" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                            </sheet>
+                        </page>
+                        <page name="circulation_document" string="Documentos de Circulación" attrs="{'invisible': [('driver_id', '=', False)]}">
+                            <sheet>
+                                <group>
+                                    <group>
+                                        <field name="circulation_certificate_number" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                        <field name="serial_niv" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                        <field name="insaurance_policy_number" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="circulation_certificate_image" 
+                                                widget="image" options="{'size': (300, 300)}" 
+                                                attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                    </group>
+                                </group>
+                            </sheet>
+                        </page>
+                        <page name="extra_info" string="Información Adicional" attrs="{'invisible': [('driver_id', '=', False)]}">
+                            <sheet>
+                                <group>
+                                    <field name="gas_type" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                    <field name="motor_serial" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                    <field name="chasis_serial" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                </group>
+                            </sheet>
+                        </page>
+                        <page name="inspecction_info" string="Inspección Técnica" 
+                            attrs="{'invisible': ['|', ('driver_id', '=', False), ('state', 'not in', ['inspection_pending', 'approved', 'rejected'])]}">
+                            <sheet>
+                                <group>
+                                    <field name="vehicle_inspection_date" attrs="{'readonly': [('state', 'not in', ['inspection_pending'])]}"/>
+                                    <field name="vehicle_conditions" 
+                                            placeholder="Describa las condiciones del vehículo" 
+                                            attrs="{'readonly': [('state', 'not in', ['inspection_pending'])]}"/>
+                                    <field name="passenger_capacity" attrs="{'readonly': [('state', 'not in', ['inspection_pending'])]}"/>
+                                    <field name="load_capacity" attrs="{'readonly': [('state', 'not in', ['inspection_pending'])]}"/>
+                                    <field name="rejection_reason" attrs="{'readonly': [('state', 'not in', ['inspection_pending'])]}"/>
+                                </group>
+                            </sheet>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_vehicle_search" model="ir.ui.view">
+        <field name="name">view.vehicle.search</field>
+        <field name="model">vehicle.vehicle</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="name"/>
+                <field name="license_plate"/>
+                <field name="driver_id"/>
+                <field name="vehicle_type_id"/>
+                <field name="vehicle_brand_id"/>
+                <field name="vehicle_model"/>
+                <field name="year"/>
+                <field name="color"/>
+                <field name="state"/>
+                <separator/>
+                <filter name="draft" 
+                        string="Borrador" 
+                        domain="[('state', '=', 'draft')]" />
+                <filter name="verification_pending" 
+                        string="Pendiente Verificación de Tránsito" 
+                        domain="[('state', '=', 'verification_pending')]" />
+                <filter name="inspection_pending"
+                        string="Inspección Pendiente" 
+                        domain="[('state', '=', 'inspection_pending')]" />
+                <separator/>
+                <filter name="approved"
+                        string="Aprobado" 
+                        domain="[('state', '=', 'approved')]" />
+                <filter name="rejected"
+                        string="Rechazado" 
+                        domain="[('state', '=', 'rejected')]" />
+                <separator/>
+                <filter name="year" 
+                        string="Año menor o igual a 2012" 
+                        domain="[('year', '&gt;=', '2000'),
+                                ('year', '&lt;=', '2012')]"/>
+                <filter name="year" 
+                        string="Año mayor a 2012" 
+                        domain="[('year', '&gt;', '2012')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="brand" string="Marca de Vehículo" context="{'group_by': 'vehicle_brand_id'}" />
+                    <filter name="type" string="Tipo de Vehículo" context="{'group_by': 'vehicle_type_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="vehicle_vehicle_action" model="ir.actions.act_window">
+        <field name="name">Vehículos</field>
+        <field name="res_model">vehicle.vehicle</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="vehicle_vehicle_menu" name="Vehículos" parent="menu_vehicle_register_root" action="vehicle_vehicle_action" sequence="1"/>
+
+</odoo>
