@@ -4,7 +4,7 @@
 
 - [vechicle_registration](#vechicle_registration)
   - [Índice](#índice)
-  - [Arquitetura de Datos](#arquitetura-de-datos)
+  - [Arquitectura de Datos](#arquitectura-de-datos)
   - [Configuración](#configuración)
     - [Configuración de usuarios](#configuración-de-usuarios)
     - [Configuración de tipos de vehículos](#configuración-de-tipos-de-vehículos)
@@ -18,7 +18,7 @@
 
 Módulo para gestionar el registro de vehículos.
 
-## Arquitetura de Datos
+## Arquitectura de Datos
 
 ![arquitectura de datos](images/registro_vehicular.drawio.png)
 
